@@ -5,14 +5,13 @@
 .task-card:hover { box-shadow: 0 6px 20px rgba(31, 61, 43, .08); }
 
 .task-card__art {
-  position: absolute; left: 50%; top: -70px; width: 120px; height: 150px;
+  position: absolute; left: 50%; top: -62px;
   transform: translateX(-50%); pointer-events: none;
 }
 .task-card__art::before {
-  content: ''; position: absolute; left: 50%; bottom: 24px; width: 108px; height: 62px;
-  transform: translateX(-50%); border-radius: 108px 108px 0 0; background: var(--accent);
+  content: ''; position: absolute; left: 50%; bottom: 12px; width: 130px; height: 78px;
+  transform: translateX(-50%); border-radius: 130px 130px 0 0; background: var(--accent);
 }
-.task-card__art svg { position: relative; }
 
 .task-card__top { display: flex; justify-content: space-between; align-items: flex-start; }
 .task-card__cat { background: var(--off-white-border); color: var(--muted); }

@@ -15,7 +15,7 @@ export default function TaskCard({ task, onOpen, onEdit, onDelete }) {
       onKeyDown={(e) => e.key === 'Enter' && onOpen(task)}
     >
       <div className="task-card__art" style={{ '--accent': task.accent }}>
-        <Plant variant={task.plant} size={120} />
+        <Plant variant={task.plant ?? task.id} size={130} />
       </div>
 
       <div className="task-card__top">

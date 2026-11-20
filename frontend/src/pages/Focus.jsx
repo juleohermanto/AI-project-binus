@@ -67,7 +67,7 @@ export default function Focus() {
         <div className="focus__grid">
           <section className="focus__stage">
             <div className="focus__plant">
-              <Plant variant={task.plant} size={300} />
+              <Plant variant={task.plant ?? task.id} size={350} />
             </div>
             <div className="focus__timer">{pad(Math.floor(seconds / 60))}:{pad(seconds % 60)}</div>
             <div className="progress"><span style={{ width: `${(1 - seconds / STEP_SECONDS) * 100}%` }} /></div>

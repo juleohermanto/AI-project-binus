@@ -1,29 +1,38 @@
-// Placeholder plant illustration. To use the real Figma art, export each plant
-// as SVG into src/assets/plants and pass it in: <Plant src={myPlantSvg} />
-const VARIANTS = {
-  agave: [[-52, 0.85], [-26, 1.05], [0, 1.2], [26, 1.05], [52, 0.85]],
-  leafy: [[-62, 0.9], [-28, 1.1], [8, 1.15], [40, 1], [68, 0.75]],
-  sprout: [[-40, 0.8], [0, 1.1], [40, 0.8]],
-};
+const modules = import.meta.glob('../assets/plants/*.{svg,png,webp,jpg}', {
+  eager: true,
+  import: 'default',
+});
 
-export default function Plant({ variant = 'agave', size = 120, src, alt = '' }) {
-  if (src) return <img src={src} width={size} alt={alt} />;
-  const leaves = VARIANTS[variant] ?? VARIANTS.agave;
+const plants = Object.fromEntries(
+  Object.entries(modules).map(([path, url]) => [
+    path.split('/').pop().replace(/\.\w+$/, ''),
+    url,
+  ])
+);
+const names = Object.keys(plants);
+const hash = (s) => [...String(s)].reduce((a, c) => (a * 31 + c.charCodeAt(0)) >>> 0, 7);
+
+export default function Plant({ variant, size = 130, alt = '' }) {
+  const key = plants[variant]
+    ? variant
+    : names[(typeof variant === 'number' ? variant : hash(variant)) % names.length];
+
   return (
-    <svg viewBox="0 0 120 150" width={size} height={size * 1.25} aria-hidden="true">
-      <ellipse cx="60" cy="140" rx="42" ry="7" fill="#d9d6cc" />
-      <g stroke="#5b2a3a" strokeWidth="4" strokeLinejoin="round" strokeLinecap="round">
-        {leaves.map(([angle, scale], i) => (
-          <path
-            key={i}
-            transform={`translate(60 84) rotate(${angle}) scale(${scale})`}
-            d="M0 0C14-16 16-42 0-70C-16-42-14-16 0 0Z"
-            fill="#a8bf8c"
-          />
-        ))}
-        <path d="M33 96h54l-6 34a6 6 0 0 1-6 5H45a6 6 0 0 1-6-5Z" fill="#f4e9d6" />
-        <rect x="28" y="84" width="64" height="14" rx="6" fill="#efc49a" />
-      </g>
-    </svg>
+    <span style={{ position: 'relative', display: 'block', zIndex: 1 }}>
+      {/* shadow: attached to the plant, so it always touches the pot */}
+      <span
+        aria-hidden="true"
+        style={{
+          position: 'absolute', left: '50%', bottom: size * 0.05, zIndex: 0,
+          width: size * 0.75, height: size * 0.1, transform: 'translateX(-50%)',
+          borderRadius: '50%', background: 'rgba(9, 30, 18, 0.24)', filter: 'blur(1px)',
+        }}
+      />
+      <img
+        src={plants[key]}
+        alt={alt}
+        style={{ position: 'relative', zIndex: 1, display: 'block', height: size, width: 'auto' }}
+      />
+    </span>
   );
 }
