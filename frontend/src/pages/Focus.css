@@ -1,4 +1,4 @@
-.focus { padding-top: 56px; }
+.page.focus { padding-top: 56px; }
 .focus__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; max-width: 1240px; margin: 0 auto; }
 
 .focus__stage { max-width: 580px; justify-self: end; width: 100%; }

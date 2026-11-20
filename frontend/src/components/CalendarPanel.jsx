@@ -9,7 +9,7 @@ export default function CalendarPanel({ plannedCount = 0 }) {
   const now = new Date();
   const [view, setView] = useState({ y: now.getFullYear(), m: now.getMonth() });
 
-  const offset = (new Date(view.y, view.m, 1).getDay() + 6) % 7; // week starts Monday
+  const offset = (new Date(view.y, view.m, 1).getDay() + 6) % 7;
   const daysInMonth = new Date(view.y, view.m + 1, 0).getDate();
   const cells = [...Array(offset).fill(null), ...Array.from({ length: daysInMonth }, (_, i) => i + 1)];
   const isToday = (d) => d === now.getDate() && view.m === now.getMonth() && view.y === now.getFullYear();

@@ -7,7 +7,7 @@ export default function AiPanel({ onSubmit }) {
   const [text, setText] = useState('');
   const send = () => {
     if (!text.trim()) return;
-    onSubmit?.(text.trim()); // hook up your AI task-breakdown call here
+    onSubmit?.(text.trim());
     setText('');
   };
 

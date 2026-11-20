@@ -19,7 +19,6 @@ export default function Plant({ variant, size = 130, alt = '' }) {
 
   return (
     <span style={{ position: 'relative', display: 'block', zIndex: 1 }}>
-      {/* shadow: attached to the plant, so it always touches the pot */}
       <span
         aria-hidden="true"
         style={{
@@ -31,7 +30,10 @@ export default function Plant({ variant, size = 130, alt = '' }) {
       <img
         src={plants[key]}
         alt={alt}
-        style={{ position: 'relative', zIndex: 1, display: 'block', height: size, width: 'auto' }}
+        style={{
+        position: 'relative', bottom: size * 0.05, zIndex: 1,
+        display: 'block', height: size, width: 'auto',
+        }}
       />
     </span>
   );
