@@ -1,0 +1,57 @@
+const mk = (items) => items.map(([title, desc]) => ({ title, desc }));
+
+export const tasks = [
+  {
+    id: 'presentation',
+    title: 'Prepare the team presentation',
+    focusTitle: 'Prepare tomorrow’s presentation',
+    desc: 'Turn your ideas into a clear story for tomorrow’s team meeting.',
+    category: 'Work', minutes: 30, due: 'Tomorrow', dueRank: 1, priority: 'high',
+    accent: 'var(--vermilion)', plant: 'agave', done: 3,
+    next: 'Outline the three main points',
+    steps: mk([
+      ['Review the presentation brief'],
+      ['Note who will be in the room'],
+      ['Pick the one main message'],
+      ['Open the file & write 3 key points', 'Start a fresh presentation. Write the three ideas you want the team to remember — rough notes are enough.'],
+      ['Draft a simple opening slide'],
+      ['Sketch the middle slides'],
+      ['Add one supporting visual'],
+      ['Write a closing slide'],
+      ['Read it through once'],
+    ]),
+  },
+  {
+    id: 'proposal',
+    title: 'Polish the collaboration proposal',
+    desc: 'Bring the details together and get your proposal ready to share.',
+    category: 'Work', minutes: 25, due: 'This week', dueRank: 2, priority: 'medium',
+    accent: 'var(--yellow)', plant: 'leafy', done: 3,
+    next: 'Review the opening section',
+    steps: mk([
+      ['Reread the proposal goals'],
+      ['Mark the unclear parts'],
+      ['Gather the latest numbers'],
+      ['Review the opening section'],
+      ['Tighten the summary'],
+      ['Check the timeline'],
+      ['Fix the formatting'],
+      ['Proofread once'],
+      ['Share it with the team'],
+    ]),
+  },
+  {
+    id: 'workspace',
+    title: 'Reset your workspace',
+    desc: 'Make a little room to think. A clearer desk is a fresh start.',
+    category: 'Personal', minutes: 10, due: 'Today', dueRank: 0, priority: 'low',
+    accent: 'var(--green)', plant: 'sprout', done: 0,
+    next: 'Clear one corner of your desk',
+    steps: mk([
+      ['Clear one corner of your desk'],
+      ['Sort papers into piles'],
+      ['Put away what you don’t need'],
+      ['Wipe the surface'],
+    ]),
+  },
+];
