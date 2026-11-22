@@ -1,0 +1,125 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum PriorityLevel {
+  HIGH
+  MEDIUM
+  LOW
+}
+
+enum TaskStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+}
+
+enum TaskSource {
+  MANUAL
+  BRAIN_DUMP
+}
+
+enum FocusSessionStatus {
+  ACTIVE
+  COMPLETED
+  CANCELLED
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  name         String
+  passwordHash String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  tasks         Task[]
+  refreshTokens RefreshToken[]
+  focusSessions FocusSession[]
+}
+
+model RefreshToken {
+  id        String    @id @default(cuid())
+  tokenHash String    @unique
+  userId    String
+  expiresAt DateTime
+  revokedAt DateTime?
+  createdAt DateTime  @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([expiresAt])
+}
+
+model Task {
+  id               String        @id @default(cuid())
+  userId           String
+  title            String
+  description      String?
+  category         String?
+  estimatedMinutes Int
+  priorityScore    Int
+  priorityLevel    PriorityLevel
+  priorityReason   String?
+  deadline         DateTime?
+  status           TaskStatus    @default(PENDING)
+  source           TaskSource    @default(MANUAL)
+  completedAt      DateTime?
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+
+  user          User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  microSteps    MicroStep[]
+  focusSessions FocusSession[]
+
+  @@index([userId, status])
+  @@index([userId, deadline])
+  @@index([userId, createdAt])
+  @@index([userId, priorityScore])
+}
+
+model MicroStep {
+  id               String    @id @default(cuid())
+  taskId           String
+  title            String
+  description      String?
+  estimatedMinutes Int
+  order            Int
+  isCompleted      Boolean   @default(false)
+  completedAt      DateTime?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  task          Task           @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  focusSessions FocusSession[]
+
+  @@index([taskId, order])
+}
+
+model FocusSession {
+  id                  String             @id @default(cuid())
+  userId              String
+  taskId              String
+  microStepId         String?
+  durationMinutes     Int
+  status              FocusSessionStatus @default(ACTIVE)
+  motivationalMessage String?
+  startedAt           DateTime           @default(now())
+  endedAt             DateTime?
+  createdAt           DateTime           @default(now())
+  updatedAt           DateTime           @updatedAt
+
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  task      Task       @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  microStep MicroStep? @relation(fields: [microStepId], references: [id], onDelete: SetNull)
+
+  @@index([userId, status])
+  @@index([userId, startedAt])
+  @@index([taskId])
+}
