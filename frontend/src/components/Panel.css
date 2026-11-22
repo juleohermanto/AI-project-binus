@@ -1,0 +1,10 @@
+.panel { background: var(--card); border: 1px solid var(--line); border-radius: 14px; }
+.panel + .panel { margin-top: 16px; }
+.panel__head {
+  display: flex; align-items: center; gap: 12px; width: 100%; padding: 20px 18px;
+  background: none; border: 0; font-size: 15px; font-weight: 500;
+}
+.panel__head span { flex: 1; text-align: left; }
+.panel__head svg:last-child { color: var(--muted); transition: transform .2s; }
+.panel__head svg.is-closed { transform: rotate(-90deg); }
+.panel__body { padding: 0 18px 18px; }

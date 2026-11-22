@@ -1,0 +1,29 @@
+.today__hero { padding: 42px 0 28px; }
+.today__hero h1 { font-size: 40px; line-height: 1.15; }
+.today__hero p { margin-top: 8px; color: var(--muted); font-size: 14px; }
+
+.today__layout { display: grid; grid-template-columns: 285px 1fr; gap: 28px; align-items: start; }
+.today__title { display: flex; align-items: baseline; gap: 14px; margin-bottom: 18px; }
+.today__title h2 { font-size: 24px; }
+.today__title span { font-size: 12px; color: var(--muted); }
+
+.filters {
+  display: flex; align-items: center; gap: 6px; padding: 8px 12px; background: var(--card);
+  border: 1px solid var(--line); border-radius: 12px;
+}
+.filters__tab {
+  display: flex; align-items: center; gap: 8px; height: 34px; padding: 0 14px; border: 0;
+  border-radius: 8px; background: none; font-size: 12px; color: var(--muted);
+}
+.filters__tab span { color: var(--dark-sage); }
+.filters__tab.is-active { background: var(--light-sage); color: var(--sage); }
+.filters__divider { width: 1px; height: 22px; background: var(--line); margin: 0 10px; }
+.filters__sort { position: relative; margin-left: auto; display: flex; align-items: center; gap: 36px; padding-right: 10px; font-size: 12px; color: var(--muted); }
+.filters__sort select { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+
+.today__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding-top: 60px; align-items: start; }
+
+@media (max-width: 1000px) {
+  .today__layout { grid-template-columns: 1fr; }
+  .today__grid { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); row-gap: 90px; }
+}
